@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-#include "configuration.hpp"
+#include "datachannel-wasm/configuration.hpp"
 
 #include <cerrno>
 #include <cstdlib>

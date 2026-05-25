@@ -1,19 +1,16 @@
 // The datachannel library.
 #if defined(DM_PLATFORM_HTML5)
 #include <emscripten.h>
-#include "rtc.hpp"
-#else
-#include "libdatachannel/rtc.hpp"
 #endif
+
+#include "datachannel-wasm/rtc.hpp"
 
 
 #include <unordered_map>
 #include <memory>
 
 
-rtc::Configuration configuration;
-
-
+rtc::Configuration& GetConfiguration();
 std::unordered_map<int, std::shared_ptr<rtc::PeerConnection>> peer_connection_map;
 std::unordered_map<int, std::unordered_map<std::string, std::shared_ptr<rtc::DataChannel>>> data_channel_map;
 

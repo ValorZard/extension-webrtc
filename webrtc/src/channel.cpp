@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-#include "channel.hpp"
+#include "datachannel-wasm/channel.hpp"
 
 namespace rtc {
 

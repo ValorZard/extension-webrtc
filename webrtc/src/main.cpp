@@ -12,6 +12,13 @@
 #include <cerrno>
 #include <cstdlib>
 
+rtc::Configuration& GetConfiguration()
+{
+    // Keep configuration alive for process lifetime to avoid requiring a global dtor symbol at link time.
+    static rtc::Configuration* configuration = new rtc::Configuration();
+    return *configuration;
+}
+
 
 std::vector<std::string> split(std::string string, const std::string& delimiter)
 {
@@ -105,7 +112,7 @@ void HandleCallback(int event, int id, std::string label, std::string data)
 
 static std::shared_ptr<rtc::PeerConnection> create_peer(int id) 
 {   
-    std::shared_ptr<rtc::PeerConnection> pc = std::make_shared<rtc::PeerConnection>(configuration);
+    std::shared_ptr<rtc::PeerConnection> pc = std::make_shared<rtc::PeerConnection>(GetConfiguration());
     
     pc->onStateChange([](rtc::PeerConnection::State state) { dmLogDebug("State: %d", int(state)); });
 
@@ -352,7 +359,7 @@ static int LuaSetConfiguration(lua_State* L)
                 continue;
             }
 
-            configuration.iceServers.push_back(rtc::IceServer(zone[0].c_str(), port));
+            GetConfiguration().iceServers.push_back(rtc::IceServer(zone[0].c_str(), port));
         }
         else if (zone.size() == 4)
         {
@@ -362,7 +369,7 @@ static int LuaSetConfiguration(lua_State* L)
                 continue;
             }
 
-            configuration.iceServers.push_back(rtc::IceServer(zone[0].c_str(), port, zone[2].c_str(), zone[3].c_str()));
+            GetConfiguration().iceServers.push_back(rtc::IceServer(zone[0].c_str(), port, zone[2].c_str(), zone[3].c_str()));
         }
         else
             dmLogError("Expected 2 or 4 arguments for an ice server entry, got %lu, on \'set_configuration\'", zone.size());

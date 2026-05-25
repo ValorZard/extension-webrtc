@@ -20,9 +20,11 @@
  * SOFTWARE.
  */
 
-#include "peerconnection.hpp"
+#include "datachannel-wasm/peerconnection.hpp"
 
+#if defined(DM_PLATFORM_HTML5)
 #include <emscripten/emscripten.h>
+#endif
 
 #include <exception>
 #include <iostream>

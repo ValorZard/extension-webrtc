@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-#include "description.hpp"
+#include "datachannel-wasm/description.hpp"
 
 #include <unordered_map>
 

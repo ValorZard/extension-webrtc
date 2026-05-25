@@ -20,9 +20,11 @@
  * SOFTWARE.
  */
 
-#include "datachannel.hpp"
+#include "datachannel-wasm/datachannel.hpp"
 
+#if defined(DM_PLATFORM_HTML5)
 #include <emscripten/emscripten.h>
+#endif
 
 #include <chrono>
 #include <exception>

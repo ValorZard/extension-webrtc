@@ -20,9 +20,11 @@
  * SOFTWARE.
  */
 
-#include "websocket.hpp"
+#include "datachannel-wasm/websocket.hpp"
 
+#if defined(DM_PLATFORM_HTML5)
 #include <emscripten/emscripten.h>
+#endif
 
 #include <exception>
 #include <memory>
